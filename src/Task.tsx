@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import { useStopwatch } from 'react-timer-hook';
-import { ITask } from './redux/modules/tasks/types';
-import { useDispatch } from 'react-redux';
-import { TasksActions } from './redux/modules/tasks/actions';
+import {useStopwatch} from 'react-timer-hook';
+import {ITask} from './redux/modules/tasks/types';
+import {useDispatch} from 'react-redux';
+import {TasksActions} from './redux/modules/tasks/actions';
 
 export interface Props {
   task: ITask;
@@ -12,12 +12,17 @@ export interface Props {
 const Task: React.FC<Props> = ({task}) => {
   const {seconds} = useStopwatch({autoStart: false});
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const removeTask = () => {
-    dispatch(TasksActions.removeTask(task))
+    dispatch(TasksActions.removeTask(task));
   };
 
+  const startTimer = () => {
+    dispatch(TasksActions.changeTimerStatus(task));
+  };
+
+  const status = task.isStarted ? 'Stop' : 'Start';
   return (
     <View
       style={{
@@ -27,9 +32,25 @@ const Task: React.FC<Props> = ({task}) => {
         flexDirection: 'row',
         justifyContent: 'space-between',
       }}>
-      <View>
-        <Text>Task: {task.name}</Text>
-        <Text>Time: {task.time}</Text>
+      <View
+        style={{
+          flexDirection: 'row',
+        }}>
+        <Text
+          onPress={startTimer}
+          style={{
+            padding: 8,
+            marginRight: 16,
+            backgroundColor: task.isStarted ? 'green' : 'red',
+            color: '#fff',
+            borderRadius: 50,
+          }}>
+          {status}
+        </Text>
+        <View>
+          <Text>Task: {task.name}</Text>
+          <Text>Time: {task.time}</Text>
+        </View>
       </View>
       <TouchableOpacity
         style={{
