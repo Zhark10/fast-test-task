@@ -2,26 +2,26 @@ import React from 'react';
 import {View, Dimensions, TextInput, Button} from 'react-native';
 import Task from './Task';
 import {ITask} from './redux/modules/tasks/types';
+import {useDispatch, useSelector} from 'react-redux';
+import {TasksActions} from './redux/modules/tasks/actions';
+import {IState} from './redux/types/IState';
 
 const Tasks = () => {
-  const [tasks, updatedTasksList] = React.useState<ITask[]>([]);
+  const {tasks} = useSelector((state: IState) => state.tasks);
   const [task, setTask] = React.useState<ITask>({
     name: '',
     time: 0,
+    isStarted: false,
   });
 
+  const dispatch = useDispatch();
+
   const onChangeText = (text: string) => {
-    setTask({name: text, time: 0});
+    setTask({name: text, time: 0, isStarted: false});
   };
 
   const createNewTask = () => {
-    updatedTasksList((currentList) => [...currentList, task]);
-  };
-
-  const removeTask = (taskName: string) => {
-    updatedTasksList((currentList) =>
-      currentList.filter((elem) => elem.name !== taskName),
-    );
+    dispatch(TasksActions.addTask(task));
   };
 
   return (
@@ -50,7 +50,7 @@ const Tasks = () => {
       </View>
       <View>
         {tasks.map((elem, key) => (
-          <Task key={key} elem={elem} />
+          <Task key={key} task={elem} />
         ))}
       </View>
     </View>

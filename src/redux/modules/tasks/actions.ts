@@ -8,10 +8,16 @@ const addTask = (task: ITask) => ({
 
 const removeTask = (task: ITask) => ({
   type: TASKS_ACTION_TYPES.REMOVE_TASK,
-  payload: task.name
+  payload: task
+});
+
+const changeTimerStatus = (task: ITask) => ({
+  type: TASKS_ACTION_TYPES.CHANGE_TIMER_STATUS,
+  payload: task
 });
 
 export const TasksActions = {
   addTask,
-  removeTask
+  removeTask,
+  changeTimerStatus,
 };

@@ -2,13 +2,21 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import { useStopwatch } from 'react-timer-hook';
 import { ITask } from './redux/modules/tasks/types';
+import { useDispatch } from 'react-redux';
+import { TasksActions } from './redux/modules/tasks/actions';
 
 export interface Props {
-  elem: ITask;
+  task: ITask;
 }
 
-const Task: React.FC<Props> = ({elem}) => {
+const Task: React.FC<Props> = ({task}) => {
   const {seconds} = useStopwatch({autoStart: false});
+
+  const dispatch = useDispatch()
+
+  const removeTask = () => {
+    dispatch(TasksActions.removeTask(task))
+  };
 
   return (
     <View
@@ -20,8 +28,8 @@ const Task: React.FC<Props> = ({elem}) => {
         justifyContent: 'space-between',
       }}>
       <View>
-        <Text>Task: {elem.name}</Text>
-        <Text>Time: {elem.time}</Text>
+        <Text>Task: {task.name}</Text>
+        <Text>Time: {task.time}</Text>
       </View>
       <TouchableOpacity
         style={{
@@ -32,7 +40,7 @@ const Task: React.FC<Props> = ({elem}) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        onPress={() => {}}>
+        onPress={removeTask}>
         <Text
           style={{
             color: '#fff',

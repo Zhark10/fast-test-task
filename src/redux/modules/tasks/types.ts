@@ -5,4 +5,5 @@ export interface TTasks {
 export interface ITask {
   name: string;
   time: number;
+  isStarted: boolean;
 }
