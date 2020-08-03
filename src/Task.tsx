@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import { useStopwatch } from 'react-timer-hook';
-import {ITask} from './Tasks';
+import { ITask } from './redux/modules/tasks/types';
 
 export interface Props {
   elem: ITask;

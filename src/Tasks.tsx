@@ -1,18 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Dimensions,
-  TextInput,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Dimensions, TextInput, Button} from 'react-native';
 import Task from './Task';
-
-export interface ITask {
-  name: string;
-  time: number;
-}
+import {ITask} from './redux/modules/tasks/types';
 
 const Tasks = () => {
   const [tasks, updatedTasksList] = React.useState<ITask[]>([]);
@@ -30,8 +19,10 @@ const Tasks = () => {
   };
 
   const removeTask = (taskName: string) => {
-    updatedTasksList((currentList) => currentList.filter(elem => elem.name !== taskName));
-  }
+    updatedTasksList((currentList) =>
+      currentList.filter((elem) => elem.name !== taskName),
+    );
+  };
 
   return (
     <View>
@@ -41,7 +32,7 @@ const Tasks = () => {
           width: '100%',
           padding: 24,
           justifyContent: 'space-between',
-          borderWidth: 2
+          borderWidth: 2,
         }}>
         <TextInput
           autoFocus
@@ -59,7 +50,7 @@ const Tasks = () => {
       </View>
       <View>
         {tasks.map((elem, key) => (
-         <Task key={key} elem={elem}/>
+          <Task key={key} elem={elem} />
         ))}
       </View>
     </View>
