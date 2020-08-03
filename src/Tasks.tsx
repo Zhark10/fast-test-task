@@ -6,6 +6,8 @@ import {
   Dimensions,
   TextInput,
   Button,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 export interface ITask {
@@ -27,6 +29,10 @@ const Tasks = () => {
   const createNewTask = () => {
     updatedTasksList((currentList) => [...currentList, task]);
   };
+
+  const removeTask = (taskName: string) => {
+    updatedTasksList((currentList) => currentList.filter(elem => elem.name !== taskName));
+  }
 
   return (
     <View>
@@ -51,9 +57,9 @@ const Tasks = () => {
         <Button onPress={createNewTask} title="новый task" />
       </View>
       <View>
-        {tasks.map((elem, key) => (
+        {tasks.map((elem) => (
           <View
-            key={key}
+            key={elem.name}
             style={{
               width: '100%',
               padding: 16,
@@ -64,7 +70,23 @@ const Tasks = () => {
               <Text>Task: {elem.name}</Text>
               <Text>Time: {elem.time}</Text>
             </View>
-            <Text style={{backgroundColor: 'red', borderRadius: 40, height: 32, width: 32, textAlign: 'center', textAlignVertical: 'center', color: '#fff'}}>X</Text>
+            <TouchableOpacity
+              style={{
+                backgroundColor: 'red',
+                borderRadius: 40,
+                height: 32,
+                width: 32,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={() => removeTask(elem.name)}>
+              <Text
+                style={{
+                  color: '#fff',
+                }}>
+                X
+              </Text>
+            </TouchableOpacity>
           </View>
         ))}
       </View>
