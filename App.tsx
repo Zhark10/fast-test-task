@@ -21,21 +21,12 @@ const App = () => {
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
           <Tasks/>
         </ScrollView>
       </SafeAreaView>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  
-});
 
 export default App;
