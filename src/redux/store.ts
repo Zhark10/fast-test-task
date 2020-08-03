@@ -14,7 +14,7 @@ const composeEnhancers = typeof window === 'object' && (window as any).__REDUX_D
 
 const enhancer = composeEnhancers(applyMiddleware(...middleware));
 
-export const store: any = createStore(persistedReducer, enhancer);
+export const store = createStore(persistedReducer, enhancer);
 export const configurateStore = () => {
   const persistor = persistStore(store);
 
