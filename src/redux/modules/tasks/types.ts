@@ -4,6 +4,6 @@ export interface TTasks {
 
 export interface ITask {
   name: string;
-  time: number;
+  time: string;
   isStarted: boolean;
 }

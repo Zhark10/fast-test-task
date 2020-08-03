@@ -16,8 +16,14 @@ const changeTimerStatus = (task: ITask) => ({
   payload: task
 });
 
+const refreshTimeByTask = (task: ITask) => ({
+  type: TASKS_ACTION_TYPES.REFRESH_TIME_BY_TASK,
+  payload: task
+});
+
 export const TasksActions = {
   addTask,
   removeTask,
   changeTimerStatus,
+  refreshTimeByTask,
 };

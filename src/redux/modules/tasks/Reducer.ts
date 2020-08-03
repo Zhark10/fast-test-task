@@ -27,6 +27,16 @@ export default (state = initialValue, action: IAction): TTasks => {
           return elem;
         }),
       };
+
+    case TASKS_ACTION_TYPES.REFRESH_TIME_BY_TASK:
+      return {
+        tasks: state.tasks.map((elem) => {
+          if (elem.name === action.payload.name) {
+            elem.time = action.payload.time;
+          }
+          return elem;
+        }),
+      };
     default: {
       return state;
     }

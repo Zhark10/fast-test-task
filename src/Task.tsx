@@ -10,7 +10,9 @@ export interface Props {
 }
 
 const Task: React.FC<Props> = ({task}) => {
-  const {seconds} = useStopwatch({autoStart: false});
+  const {seconds, days, minutes, hours, start, pause} = useStopwatch({
+    autoStart: false,
+  });
 
   const dispatch = useDispatch();
 
@@ -19,8 +21,23 @@ const Task: React.FC<Props> = ({task}) => {
   };
 
   const startTimer = () => {
+    start()
     dispatch(TasksActions.changeTimerStatus(task));
   };
+
+  React.useEffect(() => {
+    if (task.isStarted) {
+      dispatch(
+        TasksActions.refreshTimeByTask({
+          name: task.name,
+          isStarted: true,
+          time: `${days}:${hours}:${minutes}:${seconds}`,
+        }),
+      );
+    } else {
+      pause()
+    }
+  }, [seconds]);
 
   const status = task.isStarted ? 'Stop' : 'Start';
   return (
@@ -41,6 +58,8 @@ const Task: React.FC<Props> = ({task}) => {
           style={{
             padding: 8,
             marginRight: 16,
+            width: 64,
+            textAlign: 'center',
             backgroundColor: task.isStarted ? 'green' : 'red',
             color: '#fff',
             borderRadius: 50,

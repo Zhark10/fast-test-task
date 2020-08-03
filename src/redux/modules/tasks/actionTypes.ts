@@ -5,6 +5,7 @@ const moduleName = 'tasks';
 enum actionTypes {
   REMOVE_TASK,
   CHANGE_TIMER_STATUS,
+  REFRESH_TIME_BY_TASK,
   ADD_TASK,
 }
 
