@@ -10,14 +10,14 @@ const Tasks = () => {
   const {tasks} = useSelector((state: IState) => state.tasks);
   const [task, setTask] = React.useState<ITask>({
     name: '',
-    time: 0,
+    time: '0:0:0:0',
     isStarted: false,
   });
 
   const dispatch = useDispatch();
 
   const onChangeText = (text: string) => {
-    setTask({name: text, time: 0, isStarted: false});
+    setTask(prevState => ({...prevState, name: text}));
   };
 
   const createNewTask = () => {
